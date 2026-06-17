@@ -13,7 +13,7 @@ export function Projects() {
   const [expandedId, setExpandedId] = useState<string | null>(null);
 
   return (
-    <section id="projects" className="py-24 bg-muted/30">
+    <section id="projects" className="py-16 sm:py-24 bg-muted/30">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
           label="Projects"
@@ -26,7 +26,7 @@ export function Projects() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-80px" }}
-          className="mt-12 space-y-6"
+          className="mt-10 sm:mt-12 space-y-5 sm:space-y-6"
         >
           {projects.map((project) => (
             <motion.div
@@ -34,9 +34,10 @@ export function Projects() {
               variants={fadeInUp}
               className="group rounded-2xl border border-border bg-background overflow-hidden hover:border-blue-500/30 transition-all duration-300"
             >
-              <div className="grid grid-cols-1 lg:grid-cols-5 gap-0">
+              {/* Stack vertically on mobile, side-by-side on lg+ */}
+              <div className="flex flex-col lg:grid lg:grid-cols-5">
                 {/* Project Image */}
-                <div className="lg:col-span-2 relative h-52 lg:h-auto overflow-hidden bg-muted">
+                <div className="lg:col-span-2 relative h-44 sm:h-52 lg:h-auto overflow-hidden bg-muted">
                   <Image
                     src={project.image}
                     alt={project.title}
@@ -59,10 +60,10 @@ export function Projects() {
                 </div>
 
                 {/* Content */}
-                <div className="lg:col-span-3 p-6 flex flex-col gap-4">
+                <div className="lg:col-span-3 p-4 sm:p-6 flex flex-col gap-3 sm:gap-4">
                   <div>
-                    <h3 className="text-xl font-bold text-foreground mb-2">{project.title}</h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed">
+                    <h3 className="text-lg sm:text-xl font-bold text-foreground mb-1.5">{project.title}</h3>
+                    <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
                       {project.shortDescription}
                     </p>
                   </div>
@@ -80,13 +81,13 @@ export function Projects() {
                   </div>
 
                   {/* Action buttons */}
-                  <div className="flex flex-wrap items-center gap-3 mt-auto">
+                  <div className="flex flex-wrap items-center gap-2 sm:gap-3 mt-auto">
                     {project.github ? (
                       <a
                         href={project.github}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg border border-border bg-background hover:bg-accent hover:border-border/80 text-foreground transition-all duration-200"
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg border border-border bg-background hover:bg-accent text-foreground transition-all duration-200"
                       >
                         <FaGithub size={13} />
                         GitHub
@@ -94,7 +95,7 @@ export function Projects() {
                     ) : (
                       <span className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg border border-border/40 text-muted-foreground cursor-not-allowed">
                         <FaGithub size={13} />
-                        GitHub (Coming Soon)
+                        GitHub (Soon)
                       </span>
                     )}
 
@@ -111,7 +112,7 @@ export function Projects() {
                     ) : (
                       <span className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg border border-orange-500/30 text-orange-500 bg-orange-500/5">
                         <Construction size={13} />
-                        Under Development
+                        In Dev
                       </span>
                     )}
 
@@ -119,9 +120,9 @@ export function Projects() {
                       onClick={() =>
                         setExpandedId(expandedId === project.id ? null : project.id)
                       }
-                      className="ml-auto inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground transition-colors duration-200"
+                      className="ml-auto inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground transition-colors duration-200 touch-manipulation"
                     >
-                      {expandedId === project.id ? "Less" : "More Details"}
+                      {expandedId === project.id ? "Less" : "Details"}
                       <motion.div
                         animate={{ rotate: expandedId === project.id ? 180 : 0 }}
                         transition={{ duration: 0.2 }}
@@ -143,25 +144,25 @@ export function Projects() {
                     transition={{ duration: 0.3, ease: "easeInOut" }}
                     className="overflow-hidden"
                   >
-                    <div className="px-6 pb-6 border-t border-border">
-                      <div className="pt-5 grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="px-4 sm:px-6 pb-5 sm:pb-6 border-t border-border">
+                      <div className="pt-4 sm:pt-5 grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6">
                         <div>
-                          <h4 className="text-sm font-semibold text-foreground mb-3">
+                          <h4 className="text-sm font-semibold text-foreground mb-2 sm:mb-3">
                             Project Overview
                           </h4>
-                          <p className="text-sm text-muted-foreground leading-relaxed">
+                          <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
                             {project.description}
                           </p>
                         </div>
                         <div>
-                          <h4 className="text-sm font-semibold text-foreground mb-3">
+                          <h4 className="text-sm font-semibold text-foreground mb-2 sm:mb-3">
                             Key Features
                           </h4>
                           <ul className="space-y-2">
                             {project.features.map((feat, i) => (
                               <li
                                 key={i}
-                                className="flex items-start gap-2 text-sm text-muted-foreground"
+                                className="flex items-start gap-2 text-xs sm:text-sm text-muted-foreground"
                               >
                                 <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-blue-500/70 shrink-0" />
                                 {feat}
